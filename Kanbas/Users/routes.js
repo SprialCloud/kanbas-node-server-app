@@ -136,7 +136,7 @@ res.send(status);
 
 app.delete("/api/users/:uid/courses/:cid", unenrollUserFromCourse);
 
-  const createCourse = (req, res) => {
+const createCourse = (req, res) => {
     const currentUser = req.session["currentUser"];
     const newCourse = courseDao.createCourse(req.body);
     enrollmentsDao.enrollUserInCourse(currentUser._id, newCourse._id);

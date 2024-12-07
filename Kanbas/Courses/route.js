@@ -49,13 +49,13 @@ app.get("/api/courses/:courseId/modules", async (req, res) => {
   res.json(modules);
   });
   
-app.get("/api/courses/:courseId/assignments", (req, res) => {
+app.get("/api/courses/:courseId/assignments", async (req, res) => {
   const { courseId } = req.params;
-  const assignments = assignmentsDao.findAssignmentsForCourse(courseId);
+  const assignments = await assignmentsDao.findAssignmentsForCourse(courseId);
   res.json(assignments);
 });
 
-app.post("/api/courses/:courseId/assignments/new", (req, res) => {
+app.post("/api/courses/:courseId/assignments/new", async (req, res) => {
   const { courseId } = req.params;
   const assignment = {
     _id: new Date().getTime().toString(),
@@ -67,7 +67,7 @@ app.post("/api/courses/:courseId/assignments/new", (req, res) => {
     available: req.body.available || "2024-05-06T23:59",
     
   };
-  const newAssignment = assignmentsDao.createAssignment(assignment);
+  const newAssignment = await assignmentsDao.createAssignment(assignment);
   res.send(newAssignment);
 });
 
